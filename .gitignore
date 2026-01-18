@@ -1,0 +1,55 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# =========================
+# PyCharm / JetBrains
+# =========================
+.idea/
+*.iml
+
+# =========================
+# OS / Editor noise
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Model artifacts (large, local-only)
+# =========================
+model/llama/models/*.gguf
+
+# =========================
+# Vector store / runtime data
+# =========================
+data/vector_store/
+data/*.index
+data/*.pkl
+
+# =========================
+# Environment variables
+# =========================
+.env
+
+# =========================
+# Docker
+# =========================
+**/.dockerignore

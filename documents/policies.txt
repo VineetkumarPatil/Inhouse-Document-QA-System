@@ -1,0 +1,25 @@
+Company Policies
+
+Data Privacy Policy
+All employee and customer data must be handled securely. Access to sensitive data is limited to authorized personnel only.
+
+Password Policy
+Passwords must be at least 12 characters long and include a mix of letters, numbers, and symbols. Passwords must not be reused across systems.
+
+Acceptable Use Policy
+Company systems may only be used for legitimate business purposes. Installing unauthorized software is prohibited.
+
+Incident Reporting
+Security incidents must be reported to the IT team within 24 hours. Incidents include data breaches, lost devices, and unauthorized access.
+
+Access Control
+Access to internal systems is granted based on job role and reviewed quarterly. Employees must not share credentials.
+
+Compliance
+Employees must comply with all applicable laws, regulations, and internal standards. Failure to comply may result in disciplinary action.
+
+Termination Policy
+Upon termination, all company property must be returned and system access will be revoked immediately.
+
+Policy Enforcement
+Violations of company policies may result in warnings, suspension, or termination depending on severity.

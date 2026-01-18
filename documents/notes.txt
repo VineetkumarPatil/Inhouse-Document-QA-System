@@ -1,0 +1,29 @@
+Internal Notes
+
+RAG System Overview
+The document QA system uses a retrieval-augmented generation approach. Documents are ingested, chunked, embedded, and stored in a vector database.
+
+Ingestion Flow
+1. Load text files from the documents directory
+2. Split text into overlapping chunks
+3. Generate embeddings for each chunk
+4. Store embeddings in the vector store
+
+Chunking Strategy
+Chunks should be between 300 and 600 tokens with an overlap of 50 tokens to preserve context.
+
+Embedding Model
+The embedding model converts text into numerical vectors suitable for similarity search.
+
+Query Flow
+User queries are embedded and compared against stored vectors. The most relevant chunks are retrieved and passed to the language model.
+
+Known Limitations
+- Answers are limited to ingested documents
+- Outdated documents may produce incorrect answers
+- Poor chunking can reduce retrieval accuracy
+
+Future Improvements
+- Add document metadata
+- Support PDF and DOCX files
+- Add versioning for documents

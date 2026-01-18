@@ -1,0 +1,31 @@
+Employee Handbook
+
+Welcome
+Welcome to the company. This handbook provides an overview of our mission, values, and general employment guidelines. It is intended to help employees understand expectations and available resources.
+
+Company Mission
+Our mission is to build reliable, scalable software solutions that help organizations operate efficiently. We value transparency, collaboration, and continuous improvement.
+
+Work Hours
+Standard working hours are from 9:00 AM to 5:00 PM, Monday through Friday. Some teams may operate on flexible schedules depending on project needs.
+
+Remote Work
+Employees may work remotely up to three days per week with manager approval. Fully remote roles are evaluated on a case-by-case basis.
+
+Code of Conduct
+All employees are expected to act professionally and respectfully. Harassment, discrimination, or unethical behavior will not be tolerated.
+
+Communication
+Official communication should take place through company-approved tools such as email, chat, and ticketing systems. Important decisions should be documented.
+
+Performance Reviews
+Performance reviews are conducted twice per year. Reviews focus on goals, collaboration, technical skills, and professional growth.
+
+Leave Policy
+Employees are entitled to paid time off, sick leave, and public holidays as defined by local labor laws and company policy.
+
+Security Awareness
+Employees must follow security best practices, including using strong passwords, protecting credentials, and reporting suspicious activity.
+
+Updates
+This handbook may be updated periodically. Employees will be notified of significant changes.
