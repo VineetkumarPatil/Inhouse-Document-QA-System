@@ -1,12 +1,22 @@
 from fastapi import FastAPI
 
-from ingestion.vector_store import VectorStore
-from ingestion.ingest import DocumentIngestor
 from backend.app.api.query import router as query_router
 from backend.app.services.rag_service import RAGService
+from ingestion.ingest import DocumentIngestor
+from ingestion.vector_store import VectorStore
 
 
 def create_app() -> FastAPI:
+    """
+    Create and configure the FastAPI application.
+
+    This function initializes the application, sets up shared services
+    such as the vector store and RAG service, ingests documents at
+    startup, and registers API routes.
+
+    Returns:
+        FastAPI: The fully configured FastAPI application instance.
+    """
     app = FastAPI(
         title="In-house Document QA System",
         version="1.0.0",
@@ -28,6 +38,12 @@ def create_app() -> FastAPI:
 
     @app.get("/health")
     def health():
+        """
+        Health check endpoint.
+
+        Returns:
+            dict: A simple status response indicating the service is running.
+        """
         return {"status": "ok"}
 
     return app

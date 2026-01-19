@@ -23,5 +23,5 @@ RUN mkdir -p /models
 EXPOSE 8080
 
 CMD ["./build/bin/llama-server", "-m", "/models/model.gguf", "--host", "0.0.0.0", "--port", "8080"]
-# CMD ["./build/bin/llama-server", "-m", "/models/model.gguf", "--host", "0.0.0.0", "--port", "8080", "--embeddings", "--threads", "6", "--batch-size", "256"]
+
 

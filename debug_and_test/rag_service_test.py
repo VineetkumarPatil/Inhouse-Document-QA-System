@@ -1,12 +1,12 @@
+from backend.app.services.rag_service import RAGService
 from ingestion.embedder import TextEmbedder
 from ingestion.vector_store import VectorStore
-from backend.app.services.rag_service import RAGService
 
 # Setup vector store
 docs = [
     "Retrieval Augmented Generation improves LLM answers by adding external knowledge.",
     "FAISS is used for efficient vector similarity search.",
-    "Embeddings convert text into numerical vectors."
+    "Embeddings convert text into numerical vectors.",
 ]
 
 embedder = TextEmbedder()

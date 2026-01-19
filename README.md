@@ -270,52 +270,302 @@ This is enforced via:
 | Embeddings       | Sentence Transformers   |
 | Vector Search    | FAISS                   |
 | Containerization | Docker                  |
-| OS               | Windows + WSL2 (Ubuntu) |
 | Hardware         | CPU-only                |
 
 ---
 
-## ▶️ How to Run
+## ▶️ How to Run (End-to-End)
 
-### 1️⃣ Start LLM Server
+This section walks through running the system **from scratch**.
+
+
+
+## 0️⃣ Prerequisites
+
+Make sure you have the following installed:
+
+* **Git**
+* **Docker + Docker Compose**
+* **Python 3.11**
+* **pip / virtualenv**
+* (Optional) **CUDA-enabled GPU**
+
+Verify:
+
+```bash
+docker --version
+python --version
+```
+
+---
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/VineetkumarPatil/Inhouse-Document-QA-System.git
+cd Inhouse-Document-QA-System
+```
+---
+
+## 2️⃣ Create Python Virtual Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate   # macOS / Linux
+# venv\Scripts\activate    # Windows
+```
+
+Upgrade pip:
+
+```bash
+pip install --upgrade pip
+```
+
+---
+
+## 3️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4️⃣ Prepare the LLM Model
+
+Download your model (example: LLaMA / Mistral-style GGUF or HF model) and place it here:
+
+```text
+models/
+└── llama/
+    └── models/
+        └── <model-files>
+```
+
+> ⚠️ The Docker container will mount this directory.
+
+---
+
+## 5️⃣ Build the LLM Docker Image
+
+From the project root:
+
+```bash
+docker build -t mistral-llama -f model/llama/Dockerfile .
+```
+
+Confirm image exists:
+
+```bash
+docker images | grep mistral-llama
+```
+
+---
+
+## 📥 Download the LLM Model (Manual)
+
+This project uses a **quantized GGUF model** which is **not included** in the repository due to size and licensing constraints.
+
+### 🔗 Model Source
+
+* **Model page:**
+  [https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF)
+
+---
+
+### ▶️ Download Steps
+
+1. Open the model page:
+
+   ```
+   https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF
+   ```
+   ![Hugging Face Model Page](documentation/hugging_face_ggud_1.png)
+
+2. Scroll down to the **“Provided files”** section:
+
+   ```
+   https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF#provided-files
+   ```
+   ![Provided Files](documentation/hugging_face_ggud_2.png)
+
+3. Click on the file:
+
+   ```
+   mistral-7b-instruct-v0.2.Q4_K_M.gguf
+   ```
+   ![Download GGUF File](documentation/hugging_face_ggud_3.png)
+
+4. You will be navigated to a file details page.
+   Click **Download** to download the model (~4–5 GB).
+
+---
+
+### 📁 Place the Model in the Project
+
+Move the downloaded file to:
+
+```
+model/llama/models/
+```
+
+Rename the file to:
+
+```bash
+model.gguf
+```
+
+Final structure:
+
+```text
+model/llama/models/
+└── model.gguf
+```
+
+---
+
+### Why `Q4_K_M`?
+
+* Recommended balance of **quality vs size**
+* Works well on **CPU-only** setups
+* Ideal for **RAG / Document QA** workloads
+
+---
+
+### ✅ Verify (Optional)
+
+In WSL or Linux:
+
+```bash
+ls -lh model/llama/models/model.gguf
+```
+
+Expected size: **~4–5 GB**
+
+
+---
+### 📝 Notes
+
+* Model files are **not committed** to the repository
+* Downloading via the Hugging Face UI avoids CLI/auth issues
+* Ensure the file name is exactly `model.gguf`
+
+
+---
+
+
+
+
+## 6️⃣ Start LLM Server (Inference Layer)
 
 ```bash
 docker run -p 8080:8080 \
-  -v "/absolute/path/to/model/llama/models:/models" \
+  -v "/absolute/path/to/Inhouse-Document-QA-System/model/llama/models:/models" \
   mistral-llama
+
 ```
 
-Verify:
+Expected logs:
+
+```text
+[LLM] Model loaded successfully
+[LLM] Server listening on port 8080
+```
+
+Verify health:
 
 ```bash
 curl http://localhost:8080/health
 ```
 
----
+Expected response:
 
-### 2️⃣ Start Backend API
+```json
+{"status":"ok"}
+```
 
-From project root:
+### Test Model Output
+
+```bash
+curl -X POST http://localhost:8080/completion \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Explain Retrieval Augmented Generation.",
+    "n_predict": 128
+  }'
+```
+
+Note: ⏳ First Request Latency
+
+The first inference request may take longer than subsequent requests.
+This is expected behavior as the model initializes internal caches
+and loads weights into memory. All following requests are faster.
+
+
+## 7️⃣ Ingest Start Backend API (RAG Orchestrator)
+
+From the project root:
 
 ```bash
 uvicorn backend.app.main:app --reload
 ```
 
-Expected startup log:
+Expected output:
 
-```
+```text
+INFO:     Uvicorn running on http://127.0.0.1:8000
 [Startup] Ingested X document chunks
 ```
 
 ---
 
-### 3️⃣ Query the System
+## 8️⃣ Query the System
+
+Send a query to the RAG pipeline:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/query \
   -H "Content-Type: application/json" \
   -d '{"question": "What is Retrieval Augmented Generation?"}'
 ```
+
+Example response:
+
+```json
+{
+  "answer": "Retrieval Augmented Generation (RAG) is a technique that combines..."
+}
+```
+
+Access UI
+```bash
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## 🧪 Troubleshooting
+
+**Port already in use**
+
+```bash
+lsof -i :8080
+lsof -i :8000
+```
+
+**Docker can’t see model**
+
+* Ensure absolute path
+* Check volume mount permissions
+
+**Slow responses**
+
+* Enable GPU
+* Reduce context size
+* Use quantized model
+
+
+
 
 ---
 

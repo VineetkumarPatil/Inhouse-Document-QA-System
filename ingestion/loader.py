@@ -3,10 +3,24 @@ from pathlib import Path
 
 class DocumentLoader:
     """
-    Loads raw text from TXT files only.
+    Responsible for loading raw text content from text files.
+    Only files with a `.txt` extension are supported.
     """
 
     def load(self, path: str) -> str:
+        """
+        Load and return the contents of a text file.
+
+        Args:
+            path (str): Path to the `.txt` file to be loaded.
+
+        Returns:
+            str: The raw text content of the file.
+
+        Raises:
+            FileNotFoundError: If the specified file does not exist.
+            ValueError: If the file extension is not `.txt`.
+        """
         file_path = Path(path)
 
         if not file_path.exists():

@@ -9,7 +9,7 @@ store = VectorStore(embedding_dim=384)
 docs = [
     "Retrieval Augmented Generation combines search with text generation.",
     "Fine-tuning modifies model weights using labeled data.",
-    "Vector databases store embeddings for similarity search."
+    "Vector databases store embeddings for similarity search.",
 ]
 
 # Embed and store documents
