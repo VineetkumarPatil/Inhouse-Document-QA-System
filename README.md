@@ -598,6 +598,10 @@ Each component can later be replaced:
 
 Without changing the RAG architecture.
 
+This system is designed to run fully on standard CPU hardware; no special accelerators are required. Optional hardware acceleration can be used for improved performance.  
+
+See **[DECISIONS.md](./DECISIONS.md)** for architectural details.
+
 ---
 
 ## 🧠 Key Takeaway
