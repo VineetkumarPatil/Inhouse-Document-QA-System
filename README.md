@@ -25,6 +25,20 @@ The system combines:
 
 All components run **locally** and can be reasoned about independently.
 
+## 🎯 Who This Is For
+
+This project is intended for:
+
+- Backend engineers exploring Retrieval-Augmented Generation (RAG) systems
+- ML engineers interested in **self-hosted** LLM deployments
+- Teams operating under **enterprise constraints** (no cloud APIs, CPU-only)
+- Developers who want to understand RAG **end-to-end**, not just use abstractions
+
+This project is **not** intended as:
+- A plug-and-play SaaS application
+- A beginner-level LLM tutorial
+- A high-throughput, GPU-optimized production system
+
 ---
 
 ## 🧩 Phases Completed
@@ -288,7 +302,7 @@ Make sure you have the following installed:
 * **Docker + Docker Compose**
 * **Python 3.11**
 * **pip / virtualenv**
-* (Optional) **CUDA-enabled GPU**
+* (Optional) GPU can be used for experimentation, but not required
 
 Verify:
 
