@@ -1,6 +1,6 @@
 # Project Status
 
-Current status: **Feature-complete (educational / reference implementation)**
+Current status: **Feature-complete (educational / reference implementation)**.
 
 This project is stable and not under active feature development.
 Bug fixes and documentation improvements may be added.
